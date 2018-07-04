@@ -4,21 +4,28 @@
 
 var bio = {
     name: "Nicholas Folse",
-    role: "Web Developer & Measurements Technologist",
+    role: "Software Developer & Industrial Measurements Technologist",
     contacts: {
         mobile: "505-814-6688",
-        email: "nicholas.folse@utexas.edu",
+        email: "nickfolse@unm.edu",
         github: "https://github.com/NF1198",
         /*twitter: "TBD",*/
         location: "Albuquerque, NM"
     },
     welcomeMessage: "Welcome",
-    skills: ["Responsive Web", "HTML5", "CSS3", "JavaScript", "IoT", "Java", "LabVIEW", "Microelectronics Verification & Test", "NI-DAQ", "TCP/IP", "GPIB", "Business Japanese", "Business Korean"],
+    skills: ["LabVIEW", "Java", "Python", "NI-DAQ", "Instrument Control", "Microelectronics Verification & Test", "Networking", "Business Japanese", "Business Korean"],
     biopic: "images/nfolse.jpg"
 };
 
 var education = {
     schools: [{
+        name: "University of New Mexico",
+        location: "Albuquerque, NM",
+        degree: "MS/ISA (Master of Science in Information Systems and Assurance)",
+        majors: ["Information Systems and Assurance"],
+        dates: "2017-2018",
+        url: "https://msisa.mgt.unm.edu/"
+    }, {
         name: "University of Texas at Austin",
         location: "Austin, TX",
         degree: "Bachelor of Science",
@@ -54,7 +61,7 @@ var work = {
         title: "Senior Engineer",
         location: "Asan, South Korea",
         dates: "2012-2016",
-        description: "Senior measurement technologist with emphasis in electical and optical properties evaluation and test automation."
+        description: "Senior measurement technologist; Specialized in electical and optical properties evaluation and test automation."
     },{
         employer: "University of Texas at Austin",
         title: "Teaching Assistant - Materials Science Laboratory",
@@ -72,14 +79,50 @@ var work = {
 
 var projects = {
     projects: [{
-        title: "A project",
-        dates: "2012-2103",
-        description: "A project placeholder",
-        images: ["images/300x240.png", "images/300x240.png"]
-    }]
+        title: "Display Test Environment (DTE) - A Scalable LabVIEW-based Test Platform",
+        dates: "2012-2016",
+        bullets: ["Reduced department-wide “unexpected issue” resolution time by over 90%",
+        "Recognized by top-management for driving innovation and helping resolve critical issues",
+        "Used by multiple engineers to prototype new measurement and automation systems",
+        "Supported dozens of engineers for over 3 years",
+        "Custom user-level scripting with Lua"],
+        images: []
+    }, {
+        title: "Multi-device Test Automation Platform - LabVIEW",
+        dates: "2015-2016",
+        bullets: [
+            "LabVIEW-based automation platform with custom domain-specific language (DSL)",
+            "Simultaneous control, measurement, & data logging of 100’s of DUTs per station",
+            "Average test length: 60 - 90 days → Software failures unacceptable",
+            "3 month development time",
+            "Worked closely with hardware developers to implement complete solution",
+        ],
+        images: []
+    }, {
+        title: "Transit Data Front End (HTML5) - Web Based Real Time Transit System Investigator",
+        dates: "2017",
+        description: "This application dynamically generates bus maps and stop time-tables while incorporating live route data. It is composed of a JavaScript (TypeScript) backend for GTFS data processing/site generation and a frontend that runs in modern browsers and on mobile devices.",
+        bullets: [
+            "HTML5/CSS/JS/D3/Knockout (+TypeScript, Webpack)",
+            "Mobile-first design focused on ease of use",
+            "Site generation based on Node.js",
+            "Supports site-specific customization and GTFS processing (for non-standard GTFS)"],
+        images: []
+    }, {
+        title: "Python - Domain-specific Linting & Code Generation",
+        dates: "2014-2015",
+        bullets: [
+            "Custom linting tool (code analysis) for OEM display calibration machines",
+            "Custom parser and lexer written in Python",
+            "Domain-specific code analyzer and generator",
+            "Application packaged for internal distribution (standalone installer)"
+        ],
+        images: []
+    }
+]
 };
 
-var otherLocations = ["Cairo, Egypt", "Tokyo, Japan"];
+var otherLocations = ["Cairo, Egypt", "Tokyo, Japan", "Seoul, Korea"];
 
 //
 // DOM Update Funcions
@@ -311,15 +354,24 @@ projects.display = function() {
         var $dates = $("<div>", {
             class: "date-text"
         }).text(project.dates);
-        var $description = $("<p>").text(project.description).prepend($("<br>"));
+        var $description = (project.decription) ? $("<p>").text(project.description).prepend($("<br>")) : null;
+
+        var $bullets = $("<ul>", {
+            class: "bullets"
+        });
+        for (var jdx = 0; jdx < (project.bullets.length || 0)  && jdx < 10; jdx++) {
+            var bullet = project.bullets[jdx];
+            $bullets.append(($("<li>").text(bullet)));
+        }
 
         // build new project entry
         $project.append($title)
             .append($dates)
-            .append($description);
+            .append($description)
+            .append($bullets);
 
-        for (idx = 0; idx < project.images.length; idx++) {
-            var image = project.images[idx];
+        for (var mdx = 0; mdx < (project.images.length || 0); mdx++) {
+            var image = project.images[mdx];
             $project.append($("<img>", {
                 src: image
             }));

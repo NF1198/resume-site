@@ -170,7 +170,7 @@ var projects = {
     ]
 };
 
-var otherLocations = ["Cairo, Egypt", "Tokyo, Japan", "Seoul, Korea"];
+var otherLocations = ["Cairo, Egypt", "Tokyo, Japan", "Seoul, Korea", "Eugene, Oregon"];
 
 //
 // DOM Update Funcions

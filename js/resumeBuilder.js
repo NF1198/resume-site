@@ -304,7 +304,8 @@ education.display = function () {
             class: "education-entry"
         });
         var $name = $("<a>", {
-            href: "#"
+            href: school.url || "#",
+            target: "_blank"
         }).text(school.name + " - " + school.degree);
 
         var $dates = $("<div>", {
@@ -343,18 +344,15 @@ education.display = function () {
             class: "education-entry"
         });
         var $onlineSchool = $("<a>", {
-            href: "#"
+            href: onlineCourse.url || "#",
+            target: "_blank"
         }).text(onlineCourse.title + " - " + onlineCourse.school);
         var $onlineDate = $("<div>", {
             class: "date-text"
         }).text(onlineCourse.date);
-        var $onlineURL = $("<a>", {
-            href: "#"
-        }).text(onlineCourse.url).prepend($("<br>"));
 
         $school2.append($onlineSchool)
-            .append($onlineDate)
-            .append($onlineURL);
+            .append($onlineDate);
 
         $education.append($school2);
     }

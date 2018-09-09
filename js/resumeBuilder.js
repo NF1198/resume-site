@@ -13,7 +13,10 @@ var bio = {
         location: "Albuquerque, NM"
     },
     welcomeMessage: "Welcome",
-    skills: ["LabVIEW", "Java", "Python", "NI-DAQ", "Instrument Control", "Microelectronics Verification & Test", "Networking", "Business Japanese", "Business Korean"],
+    skills: [
+        "LabVIEW", "Java", "Python", "NI-DAQ", "Instrument Control",
+        "Microelectronics Verification & Test", "TCP/IP Networking",
+        "Computer Security", "Cryptography", "Business Japanese", "Business Korean"],
     biopic: "images/nfolse.jpg"
 };
 
@@ -21,10 +24,10 @@ var education = {
     schools: [{
         name: "University of New Mexico",
         location: "Albuquerque, NM",
-        degree: "MS/ISA (Master of Science in Information Systems and Assurance)",
-        majors: ["Information Systems and Assurance"],
-        dates: "2017-2018",
-        url: "https://msisa.mgt.unm.edu/"
+        degree: "Dual Degree MS-ISA/MBA (in progress)",
+        majors: ["Master of Science in Information Systems and Assurance", "Master of Business Administration"],
+        dates: "2018-2019",
+        url: "https://mba.mgt.unm.edu/"
     }, {
         name: "University of Texas at Austin",
         location: "Austin, TX",
@@ -55,6 +58,42 @@ var education = {
     }]
 };
 
+var computer_languages = {
+    defs: [
+        {
+            lang: "Java",
+            level: "Intermediate",
+            desc: "self assessed to OCP equivalent skill level; not certified"
+        }, {
+            lang: "Python",
+            level: "Advanced",
+            desc: "have developed several large applications/tools"
+        },
+        {
+            lang: "HTML/JavaScript",
+            level: "Intermediate/Advanced",
+            desc: "1st prize: Mobile App Development Contest (UNM, 2017): http://abqtransit.com); completed Udacity Nanodegree;"
+        },
+        {
+            lang: "C/C++",
+            level: "Intermediate",
+            desc: "understand pointers, data structures, OOP, RAII, and can integrate basic 3rd party libraries; some practical experience in library development"
+        },
+        {
+            lang: "LabVIEW",
+            level: "Fluent",
+            desc: `proficient in all aspects of development and project management; 10+ years
+Instrument Control & NI DAQ
+SCADA - LabVIEW DSC, CompactRIO, Shared Variables, Data Logging
+LabVIEW RealTime
+LabVIEW TCP/IP networking
+LabVIEW customization (DLL integration; driver development, etc.)
+NI-IMAQ (image acquisition and processing)
+`
+        }
+    ]
+};
+
 var work = {
     jobs: [{
         employer: "Samsung Display",
@@ -62,13 +101,13 @@ var work = {
         location: "Asan, South Korea",
         dates: "2012-2016",
         description: "Senior measurement technologist; Specialized in electical and optical properties evaluation and test automation."
-    },{
+    }, {
         employer: "University of Texas at Austin",
         title: "Teaching Assistant - Materials Science Laboratory",
         location: "Austin, TX",
         dates: "2008-2009",
         description: "Instructor for ME136L laboratory course in materials science."
-    },{
+    }, {
         employer: "National Instruments",
         title: "Project Manager / Software Developer",
         location: "Austin, TX",
@@ -82,10 +121,10 @@ var projects = {
         title: "Display Test Environment (DTE) - A Scalable LabVIEW-based Test Platform",
         dates: "2012-2016",
         bullets: ["Reduced department-wide “unexpected issue” resolution time by over 90%",
-        "Recognized by top-management for driving innovation and helping resolve critical issues",
-        "Used by multiple engineers to prototype new measurement and automation systems",
-        "Supported dozens of engineers for over 3 years",
-        "Custom user-level scripting with Lua"],
+            "Recognized by top-management for driving innovation and helping resolve critical issues",
+            "Used by multiple engineers to prototype new measurement and automation systems",
+            "Supported dozens of engineers for over 3 years",
+            "Custom user-level scripting with Lua"],
         images: []
     }, {
         title: "Multi-device Test Automation Platform - LabVIEW",
@@ -118,8 +157,17 @@ var projects = {
             "Application packaged for internal distribution (standalone installer)"
         ],
         images: []
+    }, {
+        title: "Python - Distributed Workflow Manager",
+        dates: "2018",
+        bullets: [
+            "Highly scalable workflow manager",
+            "Enables distributed execution of user-defined workflows across multiple execution nodes",
+            "Based on asyncio actors (https://github.com/nf1198/PACT)"
+        ],
+        images: []
     }
-]
+    ]
 };
 
 var otherLocations = ["Cairo, Egypt", "Tokyo, Japan", "Seoul, Korea"];
@@ -136,7 +184,7 @@ var fontAwesomeClassMap = {
     email: "fa fa-envelope"
 };
 
-bio.display = function() {
+bio.display = function () {
     var $header = $("#header");
 
     // construct new elements for the header
@@ -158,7 +206,7 @@ bio.display = function() {
     var $this$ = this;
 
     // create helper functions to build contact items
-    var contactFor = function(type) {
+    var contactFor = function (type) {
         var $li = $("<li>", {
             class: "flex-item"
         });
@@ -180,7 +228,7 @@ bio.display = function() {
             .append($itemData);
     };
 
-    var contactsFor = function(contactList) {
+    var contactsFor = function (contactList) {
         var contactElements = [];
         for (var idx = 0; idx < contactList.length; idx++) {
             var contactType = contactList[idx];
@@ -226,7 +274,7 @@ bio.display = function() {
         id: "skills"
     });
 
-    var skillFor = function(data) {
+    var skillFor = function (data) {
         var $skill = $("<li>", {
             class: "flex-item"
         });
@@ -246,7 +294,7 @@ bio.display = function() {
 
 }; // bio.display()
 
-education.display = function() {
+education.display = function () {
     var $education = $("#education");
 
     // construct school items
@@ -257,19 +305,30 @@ education.display = function() {
         });
         var $name = $("<a>", {
             href: "#"
-        }).text(school.name + " -- " + school.degree);
+        }).text(school.name + " - " + school.degree);
+
         var $dates = $("<div>", {
             class: "date-text"
         }).text(school.dates);
+
         var $location = $("<div>", {
             class: "location-text"
         }).text(school.location);
-        var $major = $("<em>").text("Major: " + school.majors.join(", ")).prepend($("<br>"));
+
+        var $date_locs = $("<div>", { class: "date-locs" });
+        $date_locs.append($dates);
+        $date_locs.append($location);
+
+        var $majors_div = $("<div>", { class: "majors" });
+        var $majors = $("<ul>", { class: "majors-list" });
+        $majors_div.append($majors);
+        for (var mdx = 0; mdx < school.majors.length; mdx++) {
+            $majors.append($("<li>").text(school.majors[mdx]));
+        }
 
         $school.append($name)
-            .append($dates)
-            .append($location)
-            .append($major);
+            .append($date_locs)
+            .append($majors_div);
 
         $education.append($school);
     }
@@ -301,7 +360,7 @@ education.display = function() {
     }
 }; // education.display()
 
-work.display = function() {
+work.display = function () {
     var $workExperience = $("#workExperience");
     var jobs = work.jobs;
 
@@ -335,7 +394,36 @@ work.display = function() {
     }
 }; // work.display()
 
-projects.display = function() {
+computer_languages.display = function () {
+    var $computerLanguages = $("#computerLanguages");
+    var langs = computer_languages.defs;
+
+    // iterate through all jobs and append to the DOM
+    for (var idx = 0; idx < langs.length; idx++) {
+        var lang = langs[idx];
+
+        // construct elements
+        var $langEntry = $("<div>", {
+            class: "lang-entry"
+        });
+        var $lang = $("<div>");
+        $lang.append($("<span>", { class: "lang-name" }).text(lang.lang));
+        $lang.append($("<span>").text(" - "));
+        $lang.append($("<span>", { class: "lang-level" }).text(lang.level));
+        var $description = $("<p>", { class: "lang-desc" }).text(lang.desc);
+
+        // build new work entry
+        $langEntry
+            .append($lang)
+            .append($description);
+
+        // add work entry to work experience
+        $computerLanguages.append($langEntry);
+    }
+}; // work.display()
+
+
+projects.display = function () {
     var $projects = $("#projects");
     var projects = this.projects;
 
@@ -359,7 +447,7 @@ projects.display = function() {
         var $bullets = $("<ul>", {
             class: "bullets"
         });
-        for (var jdx = 0; jdx < (project.bullets.length || 0)  && jdx < 10; jdx++) {
+        for (var jdx = 0; jdx < (project.bullets.length || 0) && jdx < 10; jdx++) {
             var bullet = project.bullets[jdx];
             $bullets.append(($("<li>").text(bullet)));
         }
@@ -382,14 +470,14 @@ projects.display = function() {
     }
 }; // projects.display()
 
-var addMapDIV = function() {
+var addMapDIV = function () {
     var $mapDiv = $("#mapDiv");
     $mapDiv.append($("<div>", {
         id: "map"
     }));
 }; // updateMap()
 
-var inName = function(name) {
+var inName = function (name) {
     var matcher = /\w+/g;
     var names = name.match(matcher);
     names[0] = names[0].charAt(0).toUpperCase() + names[0].slice(1);
@@ -398,7 +486,7 @@ var inName = function(name) {
     return names.join(" ");
 };
 
-var addInButton = function() {
+var addInButton = function () {
     var $element = $("h1").first().next();
     $element.append($("<button>").text("Internationalize"));
 };
@@ -409,5 +497,6 @@ bio.display();
 education.display();
 work.display();
 projects.display();
+computer_languages.display();
 addMapDIV();
 // addInButton();

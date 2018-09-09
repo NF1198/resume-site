@@ -12,7 +12,7 @@ body, div, ul, li, p, h1, h2, h3, h4, h5, h6 {
     overflow: auto;
 }
 
-.education-entry, .work-entry, .project-entry {
+.education-entry, .work-entry, .project-entry, .lang-entry{
     padding: 0 5%;
 }
 
@@ -74,6 +74,7 @@ h2, h3, h4, h5 {
 }
 
 .highlight-text {
+    margin-top: 1em;
     display: block;
     width: auto;
     margin-right: auto;
@@ -98,6 +99,28 @@ h2, h3, h4, h5 {
     line-height: 16px;
     float: right;
 }
+
+.date-locs {
+    display: inline-block;
+    width: 100%;
+}
+
+.majors {
+    display: block;
+}
+
+.majors-list {
+    padding-left: 0;
+}
+
+.lang-desc {
+    font-style: italic;
+    color: darkgray;
+    margin-right: 4ch;
+    margin-left: 4ch;
+    margin-bottom: 0.5em;
+}
+
 
 #topContacts {
     padding 3px 20px 3px 20px;

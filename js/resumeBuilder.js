@@ -26,7 +26,7 @@ var education = {
         location: "Albuquerque, NM",
         degree: "Dual Degree MS-ISA/MBA (in progress)",
         majors: ["Master of Science in Information Systems and Assurance", "Master of Business Administration"],
-        dates: "2018-2019",
+        dates: "2017-2019",
         url: "https://mba.mgt.unm.edu/"
     }, {
         name: "University of Texas at Austin",

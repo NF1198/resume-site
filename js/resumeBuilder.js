@@ -81,10 +81,10 @@ var projects = {
     projects: [{
         title: "Display Test Environment (DTE) - A Scalable LabVIEW-based Test Platform",
         dates: "2012-2016",
-        bullets: ["Reduced department-wide “unexpected issue” resolution time by over 90%",
+        bullets: [
         "Recognized by top-management for driving innovation and helping resolve critical issues",
         "Used by multiple engineers to prototype new measurement and automation systems",
-        "Supported dozens of engineers for over 3 years",
+        "Reduced department-wide “unexpected issue” resolution time by over 90%",
         "Custom user-level scripting with Lua"],
         images: []
     }, {
@@ -93,7 +93,7 @@ var projects = {
         bullets: [
             "LabVIEW-based automation platform with custom domain-specific language (DSL)",
             "Simultaneous control, measurement, & data logging of 100’s of DUTs per station",
-            "Average test length: 60 - 90 days → Software failures unacceptable",
+            "Average test length: 60 - 90 days → software failures unacceptable",
             "3 month development time",
             "Worked closely with hardware developers to implement complete solution",
         ],
